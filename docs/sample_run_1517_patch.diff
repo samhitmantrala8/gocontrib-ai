@@ -1,0 +1,13 @@
+diff --git a/currency_codes.go b/currency_codes.go
+index 83b6729..add6577 100644
+--- a/currency_codes.go
++++ b/currency_codes.go
+@@ -6,7 +6,7 @@ var iso4217 = map[string]struct{}{
+ 	"AUD": {}, "AZN": {}, "BSD": {}, "BHD": {}, "BDT": {},
+ 	"BBD": {}, "BYN": {}, "BZD": {}, "XOF": {}, "BMD": {},
+ 	"INR": {}, "BTN": {}, "BOB": {}, "BOV": {}, "BAM": {},
+-	"BWP": {}, "NOK": {}, "BRL": {}, "BND": {}, "BGN": {},
++	"BWP": {}, "NOK": {}, "BRL": {}, "BND": {},
+ 	"BIF": {}, "CVE": {}, "KHR": {}, "XAF": {}, "CAD": {},
+ 	"KYD": {}, "CLP": {}, "CLF": {}, "CNY": {}, "COP": {},
+ 	"COU": {}, "KMF": {}, "CDF": {}, "NZD": {}, "CRC": {},

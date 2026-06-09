@@ -1,0 +1,33 @@
+# Core agent framework
+langgraph>=0.2.40
+langchain-core>=0.3.0
+
+# LLM providers
+google-generativeai>=0.8.3        # Gemini (primary, free tier)
+openai>=1.40.0                    # Used for OpenRouter (OpenAI-compatible) fallback
+
+# RAG: dense + sparse + symbol graph
+sentence-transformers>=3.0.0      # local CPU embeddings, no network needed at infer time
+chromadb>=0.5.0                   # local persistent vector store (no Pinecone account needed)
+rank-bm25>=0.2.2                  # lexical retrieval for Go identifiers
+
+# AST-aware chunking for Go
+tree-sitter>=0.23.0
+tree-sitter-go>=0.23.0
+
+# Repo + GitHub
+PyGithub>=2.4.0
+GitPython>=3.1.43
+unidiff>=0.7.5                    # parse + manipulate unified diffs
+
+# CLI + config + utils
+typer>=0.12.0
+rich>=13.7.0
+pyyaml>=6.0.1
+python-dotenv>=1.0.1
+pydantic>=2.8.0
+tenacity>=9.0.0                   # retries with backoff for rate-limited LLM calls
+
+# Tests
+pytest>=8.0.0
+pytest-mock>=3.14.0

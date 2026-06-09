@@ -1,0 +1,162 @@
+[
+  {
+    "node": "triage",
+    "in_scope": true,
+    "kind": "bug",
+    "reason": "The issue requests removal of a currency code from a validation list, which is a localized change."
+  },
+  {
+    "node": "mapper",
+    "repo_path": "workspace/validator",
+    "branch": "gocontrib-ai/issue-1517-1781037672",
+    "symbols": 1610
+  },
+  {
+    "node": "retriever",
+    "top": [
+      {
+        "qn": "RegisterDefaultTranslations#part5",
+        "file": "translations/uk/uk.go",
+        "score": 0.5,
+        "sources": [
+          "dense"
+        ]
+      },
+      {
+        "qn": "RegisterDefaultTranslations#part7",
+        "file": "translations/de/de.go",
+        "score": 0.484,
+        "sources": [
+          "dense"
+        ]
+      },
+      {
+        "qn": "RegisterDefaultTranslations#part4",
+        "file": "translations/uk/uk.go",
+        "score": 0.482,
+        "sources": [
+          "dense"
+        ]
+      },
+      {
+        "qn": "RegisterDefaultTranslations#part6",
+        "file": "translations/uk/uk.go",
+        "score": 0.477,
+        "sources": [
+          "dense"
+        ]
+      },
+      {
+        "qn": "RegisterDefaultTranslations#part4",
+        "file": "translations/fa/fa.go",
+        "score": 0.476,
+        "sources": [
+          "dense"
+        ]
+      },
+      {
+        "qn": "RegisterDefaultTranslations#part3",
+        "file": "translations/uk/uk.go",
+        "score": 0.473,
+        "sources": [
+          "dense"
+        ]
+      }
+    ]
+  },
+  {
+    "node": "planner",
+    "plan": {
+      "summary": "Remove BGN currency code from ISO 4217 validation list as Bulgaria will adopt EUR in 2026.",
+      "target_files": [
+        "validator/validator.go"
+      ],
+      "target_symbols": [
+        "validator.iso4217"
+      ],
+      "risk": "low"
+    }
+  },
+  {
+    "node": "reproducer",
+    "path": "issue_1517_repro_test.go",
+    "failed_as_expected": true
+  },
+  {
+    "node": "patcher",
+    "finished": true,
+    "steps": 5,
+    "files_touched": [
+      "currency_codes.go"
+    ],
+    "actions": [
+      "read_file",
+      "grep",
+      "read_file",
+      "replace_in_file",
+      "finish"
+    ]
+  },
+  {
+    "node": "critic",
+    "decision": "revise",
+    "rationale": "The diff correctly removes BGN currency code as planned, but fails gofmt formatting check. The trailing comma after 'BND' needs to be removed to maintain proper Go syntax."
+  },
+  {
+    "node": "patcher",
+    "finished": true,
+    "steps": 9,
+    "files_touched": [
+      "currency_codes.go"
+    ],
+    "actions": [
+      "read_file",
+      "grep",
+      "read_file",
+      null,
+      "read_file",
+      "replace_in_file",
+      "read_file",
+      "replace_in_file",
+      "finish"
+    ]
+  },
+  {
+    "node": "critic",
+    "decision": "revise",
+    "rationale": "While removing BGN from the currency codes list aligns with Bulgaria's planned EUR adoption, the change should be timed appropriately. Removing it now, years before the actual transition in 2026, coul"
+  },
+  {
+    "node": "patcher",
+    "finished": false,
+    "steps": 18,
+    "files_touched": [
+      "currency_codes.go"
+    ],
+    "actions": [
+      "read_file",
+      "grep",
+      "read_file",
+      "replace_in_file",
+      "read_file",
+      "replace_in_file",
+      "read_file",
+      "replace_in_file",
+      "read_file",
+      "read_file",
+      "read_file",
+      "grep",
+      "read_file",
+      "replace_in_file",
+      "read_file",
+      "replace_in_file",
+      "replace_in_file",
+      "read_file"
+    ]
+  },
+  {
+    "node": "critic",
+    "decision": "ship",
+    "rationale": "The diff correctly removes the BGN currency code from the ISO 4217 validation list as planned, and all validation checks pass without any issues or policy violations."
+  }
+]

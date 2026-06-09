@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.15, pytest-9.0.3, pluggy-1.6.0
+rootdir: /Users/samhitmantrala/test
+configfile: pyproject.toml
+testpaths: tests
+plugins: mock-3.15.1, langsmith-0.8.11, anyio-4.13.0
+collected 26 items
+
+tests/test_ast_go.py ....                                                [ 15%]
+tests/test_bm25.py ...                                                   [ 26%]
+tests/test_fs.py ....                                                    [ 42%]
+tests/test_graph_topology.py .                                           [ 46%]
+tests/test_grep.py ..                                                    [ 53%]
+tests/test_hybrid.py ..                                                  [ 61%]
+tests/test_llm_parsing.py ....                                           [ 76%]
+tests/test_policy.py ......                                              [100%]
+
+============================== 26 passed in 1.78s ==============================

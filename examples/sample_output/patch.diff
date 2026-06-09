@@ -1,0 +1,73 @@
+diff --git a/binding/json.go b/binding/json.go
+index abcdef1..1234567 100644
+--- a/binding/json.go
++++ b/binding/json.go
+@@ -1,9 +1,15 @@
+ package binding
+
+ import (
++	"errors"
+ 	"fmt"
+ 	"io"
+ 	"net/http"
+
+ 	"github.com/gin-gonic/gin/internal/json"
+ )
++
++// ErrEmptyJSONBody is returned when ShouldBindJSON / BindJSON is called
++// with a request whose body is empty. Callers can match on it with
++// errors.Is to return a meaningful 400 response.
++var ErrEmptyJSONBody = errors.New("binding: empty JSON request body")
+@@ -34,6 +40,9 @@ func decodeJSON(r io.Reader, obj any) error {
+ 	decoder := json.NewDecoder(r)
+ 	if EnableDecoderUseNumber {
+ 		decoder.UseNumber()
+ 	}
++	if err := peekEmpty(decoder); err != nil {
++		return err
++	}
+ 	if EnableDecoderDisallowUnknownFields {
+ 		decoder.DisallowUnknownFields()
+ 	}
+@@ -42,3 +51,15 @@ func decodeJSON(r io.Reader, obj any) error {
+ 	}
+ 	return validate(obj)
+ }
++
++// peekEmpty returns ErrEmptyJSONBody when the underlying stream has no
++// bytes available. Wrapping io.EOF here would lose the descriptive text,
++// so we return the sentinel directly; callers can still detect EOF with
++// errors.Is(err, io.EOF) because we join both errors.
++func peekEmpty(d *json.Decoder) error {
++	if !d.More() {
++		return fmt.Errorf("%w: %w", ErrEmptyJSONBody, io.EOF)
++	}
++	return nil
++}
+diff --git a/binding/binding_body_test.go b/binding/binding_body_test.go
+index 9876543..fedcba0 100644
+--- a/binding/binding_body_test.go
++++ b/binding/binding_body_test.go
+@@ -88,3 +88,21 @@ func TestBindingBody(t *testing.T) {
+ 		})
+ 	}
+ }
++
++func TestJSONBindingEmptyBody(t *testing.T) {
++	type payload struct {
++		Name string `json:"name"`
++	}
++	var p payload
++	req, _ := http.NewRequest(http.MethodPost, "/", strings.NewReader(""))
++	req.Header.Set("Content-Type", "application/json")
++	err := JSON.Bind(req, &p)
++	if err == nil {
++		t.Fatal("expected an error for an empty JSON body, got nil")
++	}
++	if !errors.Is(err, ErrEmptyJSONBody) {
++		t.Fatalf("expected ErrEmptyJSONBody, got %v", err)
++	}
++	if !errors.Is(err, io.EOF) {
++		t.Fatalf("error should still wrap io.EOF for backwards compat, got %v", err)
++	}
++}

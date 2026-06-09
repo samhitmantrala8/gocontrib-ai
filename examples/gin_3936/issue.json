@@ -1,0 +1,8 @@
+{
+  "repo": "gin-gonic/gin",
+  "number": 3936,
+  "title": "binding: ShouldBindJSON should return a clear error when the request body is empty",
+  "body": "When `c.ShouldBindJSON(&v)` is called with an empty body, it currently returns `EOF`. This is confusing because callers cannot distinguish an empty body from a truncated stream.\n\nExpected: a clearly-typed error like `binding.ErrEmptyBody` (or wrap EOF with a descriptive message) so middleware can return a 400 with a meaningful message.\n\nReproduction:\n```go\nrouter.POST(\"/x\", func(c *gin.Context) {\n  var v struct{ Name string `json:\"name\"` }\n  if err := c.ShouldBindJSON(&v); err != nil {\n    // err is io.EOF here when body is empty\n  }\n})\n```\n\nThis is an offline fixture used to demonstrate the agent without hitting the live GitHub API. Issue number is illustrative only.",
+  "labels": ["binding", "good first issue"],
+  "url": "https://github.com/gin-gonic/gin/issues/3936"
+}

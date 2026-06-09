@@ -1,0 +1,20 @@
+[
+  {"node": "triage", "in_scope": true, "kind": "bug", "reason": "localised binding behaviour change in a single package"},
+  {"node": "mapper", "repo_path": "workspace/gin", "branch": "gocontrib-ai/issue-3936-1717804800", "symbols": 412},
+  {"node": "retriever", "top": [
+    {"qn": "decodeJSON",            "file": "binding/json.go",  "score": 0.91, "sources": ["bm25", "dense"]},
+    {"qn": "jsonBinding.Bind",      "file": "binding/json.go",  "score": 0.84, "sources": ["bm25", "dense", "graph"]},
+    {"qn": "Context.ShouldBindJSON","file": "context.go",       "score": 0.78, "sources": ["bm25"]},
+    {"qn": "TestBindingBody",       "file": "binding/binding_body_test.go", "score": 0.66, "sources": ["graph"]}
+  ]},
+  {"node": "planner", "plan": {
+    "summary": "Wrap the empty-body case in decodeJSON with a descriptive sentinel error so callers can distinguish empty from truncated.",
+    "target_files": ["binding/json.go", "binding/binding_body_test.go"],
+    "target_symbols": ["decodeJSON", "TestJSONBindingEmptyBody"],
+    "risk": "low"
+  }},
+  {"node": "reproducer", "path": "binding/issue_3936_repro_test.go", "failed_as_expected": true},
+  {"node": "patcher", "finished": true, "steps": 7, "files_touched": ["binding/json.go", "binding/binding_body_test.go"], "actions": ["read_file","find_symbol","read_file","grep","write_file","write_file","finish"]},
+  {"node": "critic", "decision": "ship", "rationale": "Diff is minimal, on-target, builds and passes focused tests; uses errors.Is for both the new sentinel and io.EOF."},
+  {"node": "pr_writer", "title": "binding: return a clear error for empty JSON body in ShouldBindJSON"}
+]

@@ -1,0 +1,10 @@
+STATUS       LAT  NAME                                              NOTE
+----------------------------------------------------------------------------------------------------------------------------------
+PASS     3103ms  gemini:gemini-2.5-flash#key0                      OK
+FAIL      716ms  gemini:gemini-2.0-flash#key0                      RATE-LIMITED: 429 You exceeded your current quota, please check your plan and billing details.
+PASS     1191ms  gemini:gemini-2.5-flash-lite#key0                 OK
+PASS     7414ms  gemini:gemini-flash-latest#key0                   OK
+PASS     2602ms  openrouter:deepseek/deepseek-chat#key0            OK
+PASS      721ms  openrouter:meta-llama/llama-3.3-70b-instruct#key0  OK
+FAIL      668ms  openrouter:google/gemini-flash-1.5#key0           [openrouter:google/gemini-flash-1.5] Error code: 404 - {'error': {'message': 'No endpoints
+PASS      918ms  openrouter:openai/gpt-4o-mini#key0                OK
