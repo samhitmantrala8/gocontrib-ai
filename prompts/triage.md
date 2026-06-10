@@ -16,7 +16,7 @@ You REJECT issues that involve any of:
 - issues that are actually questions / support requests
 - issues where the body is empty or unclear
 
-Respond with a SINGLE JSON object only — no prose, no fences:
+Respond with a SINGLE JSON object only, with no prose and no fences:
 
 {
   "in_scope": true | false,

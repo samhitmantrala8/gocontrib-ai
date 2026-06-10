@@ -1,6 +1,6 @@
 """LangGraph state machine wiring all agent nodes together.
 
-The graph is intentionally explicit — no hidden conditional logic inside the
+The graph is intentionally explicit, with no hidden conditional logic inside the
 nodes themselves. Routing decisions live at the edges, so the topology is the
 documentation.
 """

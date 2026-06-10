@@ -89,10 +89,10 @@ def run(state: AgentState) -> AgentState:
         return state
 
     if not res.ok:
-        info("repro test failed (as expected) — bug confirmed runnable")
+        info("repro test failed (as expected). bug confirmed runnable")
         state["repro_failed_as_expected"] = True
     else:
-        warn("repro test PASSED unexpectedly — planner hypothesis may be wrong")
+        warn("repro test PASSED unexpectedly: planner hypothesis may be wrong")
         state["repro_failed_as_expected"] = False
     trace(
         state,

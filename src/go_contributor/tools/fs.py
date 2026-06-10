@@ -1,4 +1,4 @@
-"""Path-safe filesystem tools. Every tool is sandboxed to ``repo_path`` —
+"""Path-safe filesystem tools. Every tool is sandboxed to ``repo_path``;
 attempts to escape via ``..`` raise ``PathOutsideRepoError`` rather than
 silently reading the host filesystem."""
 
@@ -46,7 +46,7 @@ def list_dir(repo_path: str, rel: str = ".", max_entries: int = 200) -> list[str
         suffix = "/" if entry.is_dir() else ""
         out.append(f"{entry.name}{suffix}")
         if len(out) >= max_entries:
-            out.append("…")
+            out.append("...")
             break
     return out
 

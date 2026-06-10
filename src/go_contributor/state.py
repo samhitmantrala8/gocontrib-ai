@@ -2,7 +2,7 @@
 
 Every agent node receives the full ``AgentState`` and returns a partial dict
 which LangGraph merges. Keeping this in one place is what lets the system stay
-debuggable as the graph grows — every node has a written-down contract for what
+debuggable as the graph grows, since every node has a written-down contract for what
 it reads and what it writes.
 """
 

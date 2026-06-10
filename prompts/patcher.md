@@ -23,7 +23,7 @@ emit `{"tool": "finish", "args": {"notes": "..."}}`.
 
 Output **one JSON object** per turn, nothing else. No fences, no commentary.
 
-# Editing rules — read these carefully
+# Editing rules. read these carefully
 
 1. ALWAYS `read_file` the file you intend to edit FIRST in this loop.
 2. **Prefer `replace_in_file` over `write_file`.** It is much safer:
@@ -51,10 +51,10 @@ Output **one JSON object** per turn, nothing else. No fences, no commentary.
 # Failure handling
 
 If a tool returns `{"ok": false, "error": "..."}`:
-- "old text not found" — re-read the file and copy the exact bytes.
-- "old text appears N times" — add more surrounding context until unique.
-- "policy: ..." — pick a different file or approach. Banned paths are off-limits.
-- "file not found" — `list_dir` the parent or `grep` for a string from the
+- "old text not found". re-read the file and copy the exact bytes.
+- "old text appears N times". add more surrounding context until unique.
+- "policy: ...". pick a different file or approach. Banned paths are off-limits.
+- "file not found". `list_dir` the parent or `grep` for a string from the
   issue body to find the real path.
 
 If you discover the plan was wrong, you may patch a different file in scope,

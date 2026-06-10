@@ -63,8 +63,8 @@ class HybridRetriever:
             scores[k] = scores.get(k, 0.0) + s * self.cfg.bm25_weight
             sources.setdefault(k, []).append("bm25")
 
-        # 2. Dense (optional — system runs without it if the embedding model
-        # can't load, e.g. offline first run with no cached weights).
+        # 2. Dense (optional: the system runs without it if the embedding model
+        # cannot load, e.g. offline first run with no cached weights).
         if self.dense is not None and self.cfg.dense_weight > 0:
             try:
                 dense_hits = self.dense.query(q, top_k=self.cfg.top_k * 3)

@@ -10,7 +10,7 @@ console = Console(quiet=os.getenv("GOCONTRIB_QUIET") == "1", highlight=False)
 
 
 def step(node: str, msg: str) -> None:
-    console.print(f"[bold cyan]›[/bold cyan] [bold]{node}[/bold] {msg}")
+    console.print(f"[bold cyan]>[/bold cyan] [bold]{node}[/bold] {msg}")
 
 
 def info(msg: str) -> None:

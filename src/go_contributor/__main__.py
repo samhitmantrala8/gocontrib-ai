@@ -30,7 +30,7 @@ app = typer.Typer(add_completion=False, help="GoContrib-AI: agentic AI contribut
 def _load_config(path: str) -> dict:
     p = Path(path)
     if not p.exists():
-        # Walk up — useful when run from a sub-directory.
+        # Walk up the parent chain so this works when run from a sub-directory.
         for parent in Path.cwd().parents:
             if (parent / "config.yaml").exists():
                 p = parent / "config.yaml"
@@ -102,7 +102,7 @@ def describe():
     print(
         "graph:\n"
         "  triage → mapper → retriever → planner → reproducer → patcher → critic\n"
-        "  critic ⇒ ship→pr_writer | revise→patcher | abort→END\n"
+        "  critic => ship→pr_writer | revise→patcher | abort→END\n"
     )
 
 

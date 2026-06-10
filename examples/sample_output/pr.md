@@ -9,7 +9,7 @@ descriptive sentinel error so middleware can return a 400 with a clear
 message.
 
 The fix lives entirely in `binding/json.go`. The decoder behaviour is
-preserved for any non-empty body — only the empty-body path is rewritten.
+preserved for any non-empty body; only the empty-body path is rewritten.
 
 ## Tests
 

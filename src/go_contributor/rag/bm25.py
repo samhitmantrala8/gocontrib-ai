@@ -1,5 +1,5 @@
 """BM25 over symbol-level chunks. We tokenise on a Go-aware split: identifiers
-(camelCase + snake_case + dotted), keywords, and string literals — all lowered.
+(camelCase + snake_case + dotted), keywords, and string literals. all lowered.
 Pure lexical retrieval is shockingly strong on Go because issue authors
 usually quote the exact symbol name."""
 

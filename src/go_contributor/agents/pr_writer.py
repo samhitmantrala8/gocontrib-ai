@@ -17,7 +17,7 @@ def run(state: AgentState) -> AgentState:
     plan = state.get("plan")
     val = state.get("validation")
     user = (
-        f"## Issue\n{issue['repo']}#{issue['number']} — {issue.get('title','')}\n\n"
+        f"## Issue\n{issue['repo']}#{issue['number']}. {issue.get('title','')}\n\n"
         f"## Issue body\n{issue.get('body','')[:2500]}\n\n"
         f"## Plan summary\n{plan.summary if plan else '(none)'}\n\n"
         f"## Files touched\n{state.get('files_touched', [])}\n\n"

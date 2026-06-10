@@ -4,19 +4,19 @@ policy violations.
 
 Decide ONE of:
 
-- `ship`   — the diff is a reasonable fix for the issue, builds, tests pass,
+- `ship`  . the diff is a reasonable fix for the issue, builds, tests pass,
              matches the planned intent, and follows project conventions.
-- `revise` — the diff is on the right track but has a fixable problem
+- `revise`. the diff is on the right track but has a fixable problem
              (build/test failure, missing edge case, wrong file, style miss).
              Provide concrete, actionable feedback the patcher can use.
-- `abort`  — the diff is fundamentally wrong (touches the wrong subsystem,
+- `abort` . the diff is fundamentally wrong (touches the wrong subsystem,
              is unsalvageable, or the issue is out of reach).
 
 Bias toward `revise` over `abort`. Use `abort` only when continuing would
 likely make things worse.
 
 If validator says `no_toolchain=True`, you cannot rely on build/test
-results — judge on the diff alone, conservatively.
+results. judge on the diff alone, conservatively.
 
 Respond with a SINGLE JSON object:
 

@@ -123,7 +123,7 @@ class _GeminiSingle:
             raise LLMError(f"[gemini:{self._model_name}] {e}") from e
 
         # The .text accessor raises if any candidate has a non-STOP
-        # finish_reason (e.g. MAX_TOKENS, SAFETY). Walk parts manually.
+        # finish_reason (e.g. MAX_TOKENS, SAFETY); walk parts manually.
         text = ""
         try:
             for c in getattr(resp, "candidates", None) or []:

@@ -25,7 +25,7 @@ class Symbol:
 
 
 # ---------------------------------------------------------------------------
-# Tree-sitter loader (lazy — keeps test imports cheap)
+# Tree-sitter loader (lazy, to keep test imports cheap)
 # ---------------------------------------------------------------------------
 
 _LANG = None

@@ -1,4 +1,4 @@
-"""Wraps the Go toolchain. Every check is best-effort — when ``go`` isn't on
+"""Wraps the Go toolchain. Every check is best-effort: when ``go`` is not on
 PATH we return a sentinel so the validator can mark ``no_toolchain`` instead
 of crashing. This lets the agent be useful for review even on machines that
 don't have Go installed."""

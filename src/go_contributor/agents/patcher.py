@@ -3,17 +3,17 @@ of the form ``{"tool": "...", "args": {...}}``. We execute the tool, append
 the observation, and re-call the LLM. The loop terminates when the LLM emits
 ``{"tool": "finish"}``.
 
-We deliberately keep the tool surface tiny — six tools — because (a) the LLM
+We deliberately keep the tool surface tiny (six tools) because (a) the LLM
 gets confused by long tool menus and (b) every tool is wrapped by the
 ``policy`` guardrail before execution.
 
 Tools:
-* read_file(path)            — read a file (clamped to 200kB)
-* list_dir(path)             — list a directory
-* grep(pattern, glob?)       — ripgrep-style search
-* find_symbol(name)          — resolve "qualified.Name" to file/lines/code
-* write_file(path, content)  — write a whole file (passes ``policy.check_write`` first)
-* finish(notes)              — done; loop exits
+* read_file(path)           . read a file (clamped to 200kB)
+* list_dir(path)            . list a directory
+* grep(pattern, glob?)      . ripgrep-style search
+* find_symbol(name)         . resolve "qualified.Name" to file/lines/code
+* write_file(path, content) . write a whole file (passes ``policy.check_write`` first)
+* finish(notes)             . done; loop exits
 """
 
 from __future__ import annotations
@@ -150,7 +150,7 @@ def _parse_action(raw: str) -> dict:
     if start == -1:
         raise ValueError(f"no JSON action in:\n{raw[:300]}")
     # Find the matching close-brace using a depth counter so we ignore
-    # any trailing prose / next action the LLM may have appended.
+    # any trailing prose or next action the LLM may have appended.
     depth = 0
     in_str = False
     escape = False
@@ -196,12 +196,12 @@ def run(state: AgentState) -> AgentState:
     for step_i in range(max_steps):
         # Build the running transcript for the LLM.
         transcript = (
-            "Emit ONE JSON action per turn — nothing else. "
+            "Emit ONE JSON action per turn, nothing else. "
             "Return `{\"tool\":\"finish\",\"args\":{\"notes\":\"...\"}}` when the patch is complete.\n\n"
             "## History so far\n"
         )
         if not history:
-            transcript += "(empty — pick your first action)\n"
+            transcript += "(empty: pick your first action)\n"
         else:
             for h in history[-8:]:
                 transcript += f"\n>>> action: {json.dumps(h['action'])[:600]}\n"

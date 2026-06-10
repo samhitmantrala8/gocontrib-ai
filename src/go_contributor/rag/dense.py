@@ -5,8 +5,8 @@ Why local instead of Pinecone:
   and adds an account/API-key burden the user shouldn't have to deal with.
 * The Go repos in scope have ~3-15k symbols. ChromaDB's local persistent
   store handles that in well under a second per query on CPU.
-* MiniLM-L6-v2 is 80MB, runs on CPU, and doesn't require a GPU or a network
-  call at inference time — important when we're already calling out to
+* MiniLM-L6-v2 is 80MB, runs on CPU, and does not require a GPU or a network
+  call at inference time. That matters when we are already calling out to
   Gemini for everything else.
 
 If the user *does* want Pinecone (e.g. for a shared cache across team
@@ -30,8 +30,8 @@ def _stable_id(c: Chunk) -> str:
 
 
 class DenseIndex:
-    """Lazy: model + chroma client are built only when query() is first called.
-    Building the index is also lazy — if it's already on disk we reuse it."""
+    """Lazy: model and chroma client are built only when query() is first called.
+    Building the index is also lazy: if it is already on disk we reuse it."""
 
     def __init__(
         self,
@@ -58,7 +58,7 @@ class DenseIndex:
         Path(self.persist_dir).mkdir(parents=True, exist_ok=True)
         client = PersistentClient(path=self.persist_dir)
         # Collection name encodes commit-ish state of the chunk list so we
-        # don't reuse a stale index after the repo changes.
+        # do not reuse a stale index after the repo changes.
         sig = hashlib.sha1(
             ("|".join(f"{c.file}:{c.start_line}:{c.end_line}" for c in self.chunks)).encode()
         ).hexdigest()[:10]
@@ -83,7 +83,7 @@ class DenseIndex:
             docs.append(_embed_text(c))
         if ids:
             embs = self._model.encode(docs, batch_size=64, show_progress_bar=False).tolist()
-            # Chroma chokes on huge single inserts; chunk them.
+            # Chroma chokes on huge single inserts, so chunk them.
             for i in range(0, len(ids), 256):
                 self._collection.add(
                     ids=ids[i : i + 256],

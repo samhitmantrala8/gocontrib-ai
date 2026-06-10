@@ -54,7 +54,7 @@ def run(state: AgentState) -> AgentState:
     cfg = state["config"]["retrieval"]
     repo_path = state["repo_path"]
     issue = state["issue"]
-    step("retriever", "hybrid BM25 ⊕ dense ⊕ graph")
+    step("retriever", "hybrid BM25 + dense + graph")
 
     retriever = _build_retriever(repo_path, cfg)
     query = f"{issue.get('title','')}\n\n{issue.get('body','')[:3000]}"
@@ -62,7 +62,7 @@ def run(state: AgentState) -> AgentState:
     info(f"retrieved {len(chunks)} chunks")
     state["retrieved"] = chunks
 
-    # Convention learner — best-effort, runs once per repo per process.
+    # Convention learner: best-effort, runs once per repo per process.
     cache = mapper_node.cached(repo_path)
     if "conventions" not in cache:
         try:
